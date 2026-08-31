@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import anthropic
 from pydantic import BaseModel
@@ -50,6 +51,8 @@ for row in load_golden_dataset():
         }
     )
 
-OUTPUT_PATH = f"/results/qa_results_{MODEL}_{PROMPT_VERSION}.jsonl"
+OUTPUT_DIR = Path("results")
+OUTPUT_DIR.mkdir(exist_ok=True)
+OUTPUT_PATH = OUTPUT_DIR / f"qa_results_{MODEL}_{PROMPT_VERSION}.jsonl"
 with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
     f.writelines(json.dumps(result) + "\n" for result in results)
