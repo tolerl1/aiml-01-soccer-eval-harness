@@ -27,8 +27,8 @@ def ask(question: str, model: str = MODEL) -> QAAnswer:
     response = client.messages.parse(
         model=model,
         max_tokens=1024,
+        system=SYSTEM_PROMPT,
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": question},
         ],
         output_format=QAAnswer,
